@@ -8,20 +8,19 @@ import javax.persistence.Id;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class Media {
-
-    public Media(String url) {
-        this.url = url;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    String id;
+    long id;
 
     @Column
+    @NonNull
     private String url;
 }

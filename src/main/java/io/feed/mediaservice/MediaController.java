@@ -1,5 +1,8 @@
 package io.feed.mediaservice;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.ResourceSupport;
@@ -16,16 +19,24 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class MediaController {
 
     @Autowired
     MediaRepo repo;
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/media")
-    public ResponseEntity<Media[]> getMedia() {
+    public ResponseEntity<List<Media>> getMedia() {
+        List<Media> media = new ArrayList<>();
+        repo.findAll().forEach(media::add);
+
+        return ResponseEntity.ok(media);
+    }
+
+    @GetMapping("/mediaStatic")
+    public ResponseEntity<Media[]> getMediaStatic() {
         Media m1 = new Media(
-                "https://scontent-dfw5-1.cdninstagram.com/vp/022b01cc85d344629d999be3bafd6498/5CEEBC15/t51.2885-15/e35/60580450_2319084704998517_8360120739215865942_n.jpg?_nc_ht=scontent-dfw5-1.cdninstagram.com");
+                "https://scontent-dfw5-2.cdninstagram.com/vp/aa6552bbfae0d8d5fbca8860363065f6/5D7F72B8/t51.2885-15/sh0.08/e35/p640x640/61105788_415736015820361_1320487980089099868_n.jpg?_nc_ht=scontent-dfw5-2.cdninstagram.com");
         // m1.add(new Link("http://localhost:8080/media/1", "modify"));
 
         Media m2 = new Media(
@@ -45,6 +56,7 @@ public class MediaController {
 
         Media m8 = new Media(
                 "https://scontent-dfw5-1.cdninstagram.com/vp/c4ba4a91fe20818c1e69cb822d6e7b80/5D9FB52F/t51.2885-15/sh0.08/e35/p640x640/60201064_168289910863653_9048234796051313594_n.jpg?_nc_ht=scontent-dfw5-1.cdninstagram.com");
+
         return ResponseEntity.ok().body(new Media[] { m1, m2, m3, m4, m5, m6, m7, m8 });
     }
 

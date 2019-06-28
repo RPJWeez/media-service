@@ -23,7 +23,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @RestController
-@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:5000" })
+@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:5000", "https://light-table-ui.herokuapp.com" })
 public class MediaController {
 
         @Autowired
